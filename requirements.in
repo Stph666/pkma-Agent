@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+gradio
+sqlalchemy
+pymysql
+cryptography
+pydantic-settings
+python-multipart
+chromadb
+sentence-transformers
+pymupdf
+python-docx
+numpy
+pytest
+pytest-asyncio
+httpx

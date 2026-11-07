@@ -1,0 +1,42 @@
+# Apache 反向代理样例：统一入口 -> Uvicorn(127.0.0.1:8000)
+#
+# 使用步骤（以 Windows + Apache 2.4 为例）：
+# 1. 将本文件复制到 conf/extra/pkma.conf，并按实际安装路径修改 DocumentRoot。
+# 2. 在 httpd.conf 中启用：
+#      LoadModule proxy_module modules/mod_proxy.so
+#      LoadModule proxy_http_module modules/mod_proxy_http.so
+#      LoadModule headers_module modules/mod_headers.so
+#      Include conf/extra/pkma.conf
+# 3. 启动 Uvicorn 后重启 Apache，通过 http://127.0.0.1:8080/ 访问。
+#
+# 说明：SSE 流式输出依赖关闭代理缓冲（proxy_buffering off）与较长的超时时间。
+
+Listen 8080
+
+<VirtualHost *:8080>
+    ServerName localhost
+    DocumentRoot "C:/Apache24/htdocs"
+
+    ProxyPreserveHost On
+    ProxyRequests Off
+
+    # 流式响应关键配置
+    ProxyTimeout 300
+    SetEnv proxy-sendchunked 1
+
+    <Location />
+        ProxyPass http://127.0.0.1:8000/
+        ProxyPassReverse http://127.0.0.1:8000/
+        ProxySet flushpackets=on
+        RequestHeader set X-Forwarded-Proto "http"
+    </Location>
+
+    <Proxy *>
+        Require local
+    </Proxy>
+
+    Header always set X-Content-Type-Options "nosniff"
+
+    ErrorLog "logs/pkma-error.log"
+    CustomLog "logs/pkma-access.log" combined
+</VirtualHost>

@@ -1,0 +1,26 @@
+# 运行时依赖（由实际 import 反推，2026-11-06 重建）
+# 说明：旧版本是从带系统包的 venv 直接 freeze 的，混进了 pygame/opencv/kubernetes 等无关库。
+# torch 不锁本地 CUDA 后缀：CPU 机器装默认轮子即可；要 GPU 按 TROUBLESHOOTING 单独装 cu128。
+torch>=2.2
+
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
+sqlalchemy==2.1.6
+pymysql==1.2.3
+cryptography==50.0.2
+pydantic==2.14.2
+pydantic-settings==2.16.2
+python-dotenv==1.2.4
+python-multipart==0.0.33
+chromadb==1.5.9
+sentence-transformers==6.2.0
+transformers==5.22.1
+huggingface_hub==2.4.0
+numpy==2.4.3
+pymupdf==1.28.2
+python-docx==1.2.0
+gradio==6.31.0
+httpx==0.28.1
+websockets==17.4
+pytest==9.2.0
+pytest-asyncio==1.4.1

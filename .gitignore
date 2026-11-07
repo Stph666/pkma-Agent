@@ -1,0 +1,44 @@
+# 环境与密钥
+.env
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# 运行数据（原文件、向量库、模型缓存、日志）
+data/uploads/*
+!data/uploads/.gitkeep
+data/chroma/*
+!data/chroma/.gitkeep
+data/models/
+data/samples/*
+!data/samples/.gitkeep
+data/evaluation/*.json
+!data/evaluation/.gitkeep
+logs/
+*.log
+*.sqlite3
+
+# 临时排查目录
+.probe*/
+
+# 前端依赖与构建产物（体积大、可重建）
+web/node_modules/
+web/dist/
+web/tsconfig.tsbuildinfo
+
+# 前端日志
+web/npm-debug.log*
+
+# 编辑器
+.idea/
+.vscode/
+.DS_Store
+
+# Vite 临时文件
+web/vite.config.ts.timestamp-*
